@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Krishi Assistant</title>
+
+<style>
+    /* General page styling */
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f1f8e9;
+        color: #263b27;
+        line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+        background: #2e7d32;
+        color: white;
+        padding: 22px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 30px;
+    }
+
+    header p {
+        margin-bottom: 0;
+    }
+
+    /* Navigation */
+    nav {
+        background: #1b5e20;
+        padding: 12px;
+        text-align: center;
+    }
+
+    nav a {
+        display: inline-block;
+        color: white;
+        margin: 8px 12px;
+        text-decoration: none;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    /* Main content */
+    main {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    /* Cards */
+    .card {
+        background: white;
+        padding: 20px;
+        margin: 18px 0;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px #cccccc;
+        overflow-wrap: anywhere;
+    }
+
+    .card h2,
+    .card h3 {
+        color: #2e7d32;
+    }
+
+    /* Input fields and dropdowns */
+    input,
+    select {
+        max-width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #a5d6a7;
+        border-radius: 6px;
+        font-size: 16px;
+    }
+
+    input {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    /* Buttons */
+    button {
+        background: #2e7d32;
+        color: white;
+        border: none;
+        padding: 12px 18px;
+        margin: 5px 0;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: #1b5e20;
+    }
+
+    /* Results */
+    #searchResults,
+    #cropResults,
+    #tipsResults,
+    #farmerAnswer {
+        margin-top: 15px;
+    }
+
+    #farmerAnswer {
+        overflow-wrap: anywhere;
+    }
+
+    /* Footer */
+    footer {
+        background: #1b5e20;
+        color: white;
+        padding: 15px;
+        text-align: center;
+    }
+
+    /* Mobile-friendly layout */
+    @media (max-width: 600px) {
+        header {
+            padding: 16px 10px;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        nav {
+            padding: 8px;
+        }
+
+        nav a {
+            margin: 6px;
+            font-size: 14px;
+        }
+
+        main {
+            width: 100%;
+            margin: 10px auto;
+            padding: 12px;
+        }
+
+        .card {
+            padding: 15px;
+            margin: 12px 0;
+        }
+
+        input {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        button {
+            max-width: 100%;
+            padding: 12px 16px;
+        }
+    }
+</style>   
+</head>
+<body>
+
+    <header>
+        
+<div style="text-align: right; padding: 10px;">
+    <label for="language">Language / ಭಾಷೆ:</label>
+    <select id="language" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="kn">ಕನ್ನಡ</option>
+    </select>
+</div>
+
+        <h1>🌱 Smart Krishi Assistant</h1>
+        <p>Your smart companion for better farming</p>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#crops">Crops</a>
+        <a href="#tips">Farming Tips</a>
+    </nav>
+
+    <main id="home">
+        
+<div class="card">
+    <h2>🌱 Farmer Dashboard</h2>
+    <p>Select a service to get started.</p>
+
+    <p>
+        <a href="#crops">🌾 Explore Crops</a>
+    </p>
+
+    <p>
+        <a href="#tips">🌿 Farming Tips</a>
+    </p>
+
+    <p>
+        <a href="#askFarmer">🤖 Ask a Farming Question</a>
+    </p>
+</div>
+
+        <div class="card">
+            <h2>Welcome, Farmer!</h2>
+            <p>Learn about crops, explore farming tips,
+            and find guidance for common farming problems.</p>
+        </div>
+
+      
+<div class="card" id="crops">
+    <h2>🌾 Crop Information</h2>
+    <p>Explore useful information about common crops.</p>
+
+<input
+    type="text"
+    id="cropSearch"
+    placeholder="Search crops (Ragi, Paddy, Tomato)"
+>
+<button onclick="searchCrops()">Search</button>
+
+<div id="searchResults"></div>
+
+    <button onclick="showCrops()">Explore Crops</button>
+
+    <div id="cropResults"></div>
+</div>
+
+
+        <div class="card" id="tips">
+            <h2>🌿 Farming Tips</h2>
+            <p>Learn about watering, soil care, and crop management.</p>
+            <button onclick="viewTips()">View Tips</button>
+            <div id="tipsResults"></div>
+                View Tips
+            </button>
+        </div>
+    </main>
+
+<div class="card" id="askFarmer">
+    <h2>🤖 Ask a Farming Question</h2>
+    <p>Describe your crop problem to get basic guidance.</p>
+
+    <input
+        type="text"
+        id="farmerQuestion"
+        placeholder="Example: Why are tomato leaves yellow?"
+    >
+
+    <button onclick="askFarmingQuestion()">
+        Get Guidance
+    </button>
+
+    <div id="farmerAnswer"></div>
+</div>
+
+    <footer>
+        <p>Smart Krishi Assistant | Student Project</p>
+    </footer>
+<script src="script.js"></script>
+</body>
+</html>
